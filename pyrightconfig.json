@@ -1,0 +1,5 @@
+{
+    "strictListInference": true,
+    "strictDictionaryInference": true,
+    "strictParameterNoneValue": true
+}
