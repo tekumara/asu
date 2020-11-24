@@ -21,10 +21,11 @@ def describe_all_buckets_encryption() -> None:
         except botocore.exceptions.ClientError:
             default_sse = None
 
+        
         if default_sse:
-            print(f"{name}\t{default_sse['SSEAlgorithm']}\t{default_sse.get('KMSMasterKeyID', None)}")
+            print(f"|{name}|{default_sse['SSEAlgorithm']}|{default_sse.get('KMSMasterKeyID', None)}|")
         else:
-            print(f"{name}\tNone\tNone")
+            print(f"|{name}|None|None|")
 
 
 def main(args: List[str] = sys.argv[1:]) -> None:
