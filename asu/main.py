@@ -1,8 +1,8 @@
-from typing import Any, Dict, List, Optional
+import sys
+from typing import List
 
 import boto3
 import botocore.exceptions
-import sys
 
 
 def describe_all_buckets_encryption() -> None:
@@ -18,10 +18,13 @@ def describe_all_buckets_encryption() -> None:
             encryption = s3_client.get_bucket_encryption(Bucket=name)
             default_sse = encryption["ServerSideEncryptionConfiguration"]["Rules"][0]["ApplyServerSideEncryptionByDefault"]
 
-        except botocore.exceptions.ClientError as error:
+        except botocore.exceptions.ClientError:
             default_sse = None
 
-        print(f"{name}\t{default_sse['SSEAlgorithm'] if default_sse else 'None'}\t{default_sse['KMSMasterKeyID'] if default_sse and default_sse.get('KMSMasterKeyID', None) else 'None'}")
+        if default_sse:
+            print(f"{name}\t{default_sse['SSEAlgorithm']}\t{default_sse.get('KMSMasterKeyID', None)}")
+        else:
+            print(f"{name}\tNone\tNone")
 
 
 def main(args: List[str] = sys.argv[1:]) -> None:
