@@ -10,10 +10,11 @@ setup(
     description="aws s3 utils",
     long_description=long_description,
     long_description_content_type="text/markdown",
+    entry_points={"console_scripts": ["asu = asu.main:main"]},
     python_requires=">=3.7",
     packages=find_packages(exclude=["tests"]),
     include_package_data=True,
-    install_requires=["boto3==1.16.24"],
+    install_requires=["boto3==1.16.24","typer==0.3.2"],
     extras_require={
         "dev": [
             "autopep8==1.5.4",
