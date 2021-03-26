@@ -1,6 +1,3 @@
-import sys
-from typing import List
-
 import boto3
 import botocore.exceptions
 
@@ -27,9 +24,3 @@ def describe_all_buckets_encryption() -> None:
         else:
             print(f"|{name}|None|None|")
 
-
-def main(args: List[str] = sys.argv[1:]) -> None:
-    describe_all_buckets_encryption()
-
-if __name__ == "__main__":
-    main()

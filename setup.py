@@ -10,7 +10,7 @@ setup(
     description="aws s3 utils",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    entry_points={"console_scripts": ["asu = asu.main:main"]},
+    entry_points={"console_scripts": ["asu = asu.cli:main"]},
     python_requires=">=3.7",
     packages=find_packages(exclude=["tests"]),
     include_package_data=True,
