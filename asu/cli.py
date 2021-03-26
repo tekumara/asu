@@ -10,8 +10,13 @@ app = typer.Typer()
 
 
 @app.command()
-def lsenc() -> None:
+def sse() -> None:
     display.pretty_print(s3.describe_all_buckets_encryption())
+
+
+@app.command()
+def tags(key: str) -> None:
+    display.pretty_print(s3.describe_all_buckets_tags(key))
 
 
 def main(args: List[str] = sys.argv[1:]) -> None:
