@@ -1,10 +1,10 @@
-from typing import List, Optional
+from typing import Generator, List, Optional, Sequence
 
 import boto3
 import botocore.exceptions
 
 
-def describe_all_buckets_encryption() -> List[List[Optional[str]]]:
+def describe_all_buckets_encryption() -> Generator[Sequence[Optional[str]], None, None]:
 
     s3_client = boto3.client("s3")
 
@@ -12,7 +12,7 @@ def describe_all_buckets_encryption() -> List[List[Optional[str]]]:
 
     bucket_names: List[str] = [b["Name"] for b in response["Buckets"]]
 
-    result: List[List[Optional[str]]] = [["Bucket", "SSEAlgorithm", "KMSMasterKeyID"]]
+    yield ["Bucket", "SSEAlgorithm", "KMSMasterKeyID"]
 
     for name in bucket_names:
         try:
@@ -23,8 +23,6 @@ def describe_all_buckets_encryption() -> List[List[Optional[str]]]:
             default_sse = None
 
         if default_sse:
-            result.append([name, default_sse['SSEAlgorithm'], default_sse.get('KMSMasterKeyID', None)])
+            yield [name, default_sse['SSEAlgorithm'], default_sse.get('KMSMasterKeyID', None)]
         else:
-            result.append([name, None, None])
-
-    return result
+            yield [name, None, None]

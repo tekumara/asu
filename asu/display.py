@@ -1,8 +1,10 @@
 import json
-from typing import Any, Dict, List, Optional, Sequence, Union, cast
+from types import GeneratorType
+from typing import Any, Dict, Generator, List, Optional, Sequence, Union, cast
 
 from rich import box
 from rich.console import Console
+from rich.live import Live
 from rich.table import Table
 
 
@@ -48,12 +50,24 @@ def pretty_table(table: Optional[Sequence[Sequence[Optional[str]]]]) -> str:
     )
 
 
-def pretty_print(result: Union[List[Dict[str, str]], List[List[Optional[str]]], Dict[str, str], str, None]) -> None:
+def pretty_print(result: Union[Generator[Sequence[Optional[str]], None, None],
+                               List[Dict[str, str]], List[List[Optional[str]]], Dict[str, str], str, None]) -> None:
     """print table/json, instead of showing a dict, or list of dicts."""
 
     console = Console()
 
-    if isinstance(result, list):
+    if isinstance(result, GeneratorType):
+        header = next(result)
+        column_names = cast(List[str], header)
+        table = Table(box=box.SIMPLE)
+        for c in column_names:
+            table.add_column(c)
+
+        with Live(table, refresh_per_second=1):
+            for row in cast(GeneratorType, result):
+                table.add_row(*row)
+
+    elif isinstance(result, list):
         if isinstance(result[0], dict):
             rows = as_table(cast(List[Dict[str, str]], result))
         elif isinstance(result[0], list):
