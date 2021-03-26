@@ -13,6 +13,7 @@ def describe_all_buckets_encryption() -> None:
 
     bucket_names = [b["Name"] for b in response["Buckets"]]
 
+    print("|Bucket|SSEAlgorithm|KMSMasterKeyID|")
     for name in bucket_names:
         try:
             encryption = s3_client.get_bucket_encryption(Bucket=name)
@@ -21,12 +22,14 @@ def describe_all_buckets_encryption() -> None:
         except botocore.exceptions.ClientError:
             default_sse = None
 
-        
         if default_sse:
-            print(f"|{name}|{default_sse['SSEAlgorithm']}|{default_sse.get('KMSMasterKeyID', None)}|")
+            print(f"|{name:50s}|{default_sse['SSEAlgorithm']}|{default_sse.get('KMSMasterKeyID', None)}|")
         else:
             print(f"|{name}|None|None|")
 
 
 def main(args: List[str] = sys.argv[1:]) -> None:
     describe_all_buckets_encryption()
+
+if __name__ == "__main__":
+    main()
