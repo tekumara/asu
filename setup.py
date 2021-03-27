@@ -14,7 +14,7 @@ setup(
     python_requires=">=3.7",
     packages=find_packages(exclude=["tests"]),
     include_package_data=True,
-    install_requires=["boto3==1.17.38.0", "typer==0.3.2", "rich==9.13.0"],
+    install_requires=["boto3==1.17.39", "typer==0.3.2", "rich==9.13.0"],
     extras_require={
         "dev": [
             "autopep8==1.5.4",
