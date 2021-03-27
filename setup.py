@@ -6,7 +6,8 @@ long_description = Path("README.md").read_text()
 
 setup(
     name="asu",
-    version="0.0.0",
+    use_scm_version=True,
+    setup_requires=['setuptools_scm'],
     description="aws s3 utils",
     long_description=long_description,
     long_description_content_type="text/markdown",
