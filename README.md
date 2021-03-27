@@ -1,11 +1,23 @@
-# aws s3 utils (asu)
+# AWS S3 CLI utils (asu)
 
-aws s3 utils
+```   
+Usage: asu [OPTIONS] COMMAND [ARGS]...
 
-## Usage
+  AWS S3 CLI utils
 
+Options:
+  --install-completion [bash|zsh|fish|powershell|pwsh]
+                                  Install completion for the specified shell.
+  --show-completion [bash|zsh|fish|powershell|pwsh]
+                                  Show completion for the specified shell, to
+                                  copy it or customize the installation.
 
+  --help                          Show this message and exit.
 
+Commands:
+  sse   List default encryption for all buckets
+  tags  List tag for all buckets
+```
 
 ## Development
 
