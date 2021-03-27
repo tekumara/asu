@@ -22,9 +22,9 @@ setup(
             # pin importlib_metadata to avoid conflict, must be <2
             "importlib_metadata==1.7.0",
             "isort==5.6.4",
-            "flake8==3.8.4",
-            "flake8-annotations==2.4.1",
-            "flake8-colors==0.1.6",
+            "flake8==3.9.0",
+            "flake8-annotations==2.6.1",
+            "flake8-colors==0.1.9",
             "pre-commit==2.8.2",
             "pytest==6.1.2",
         ]
