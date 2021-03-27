@@ -1,7 +1,9 @@
 # AWS S3 CLI utils (asu)
 
 [![Test](https://github.com/tekumara/asu/actions/workflows/pythonapp.yml/badge.svg)](https://github.com/tekumara/asu/actions/workflows/pythonapp.yml)
-[![PyPI version](https://badge.fury.io/py/asu-cli.svg)](https://badge.fury.io/py/asu-cli)
+[![PyPI version](https://badge.fury.io/py/asu-cli.svg)](https://pypi.org/project/asu-cli/)
+
+## Usage
 
 ```
 Usage: asu [OPTIONS] COMMAND [ARGS]...
@@ -21,6 +23,16 @@ Commands:
   sse   List default encryption for all buckets
   tags  List tag for all buckets
 ```
+
+## Install
+
+Install the latest version using [pipx](https://github.com/pipxproject/pipx):
+
+```
+pipx install asu-cli
+```
+
+If you have previously installed asu, run `pipx upgrade asu-cli` to upgrade to the latest version.
 
 ## Development
 
