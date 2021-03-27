@@ -25,7 +25,7 @@ setup(
             "flake8==3.9.0",
             "flake8-annotations==2.6.1",
             "flake8-colors==0.1.9",
-            "pre-commit==2.8.2",
+            "pre-commit==2.11.1",
             "pytest==6.1.2",
         ]
     },
