@@ -18,7 +18,7 @@ setup(
     extras_require={
         "dev": [
             "autopep8==1.5.4",
-            "boto3-stubs[s3]==1.17.38.0",
+            "boto3-stubs[s3]==1.17.39.0",
             # pin importlib_metadata to avoid conflict, must be <2
             "importlib_metadata==1.7.0",
             "isort==5.6.4",
