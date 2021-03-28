@@ -38,7 +38,7 @@ lint: $(venv)
 node_modules: package.json
 	node --version
 	npm --version
-	npm install
+	npm install --no-save
 	touch node_modules
 
 ## pyright
