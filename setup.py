@@ -2,11 +2,13 @@ from pathlib import Path
 
 from setuptools import find_packages, setup
 
+import asu
+
 long_description = Path("README.md").read_text()
 
 setup(
     name="asu-cli",
-    version="0.0.0",
+    version=asu.__version__,
     description="aws s3 utils",
     url="https://github.com/tekumara/asu",
     long_description=long_description,

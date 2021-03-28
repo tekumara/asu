@@ -1,6 +1,11 @@
 name: Publish to PyPI
 
-on: workflow_dispatch
+on:
+  push:
+    tags:
+    paths:
+      - 'asu/__init__.py'
+  workflow_dispatch:
 
 jobs:
   publish:
@@ -23,4 +28,7 @@ jobs:
     - name: build dist
       run: make dist
     - name: upload to pypi
+      env:
+        TWINE_USERNAME: __token__
+        TWINE_PASSWORD: ${{ secrets.pypi_password }}
       run: make publish
