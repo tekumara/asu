@@ -4,9 +4,7 @@ on: [push]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v1
     - name: Set up Python 3.7
@@ -25,3 +23,25 @@ jobs:
     - uses: pre-commit/action@v2.0.0
       with:
         extra_args: --all-files --hook-stage push
+    - name: check for version bump
+      if: github.ref == 'refs/heads/main'
+      uses: marceloprado/has-changed-path@v1
+      id: version-bump
+      with:
+        paths: asu/__init__.py
+    - name: set version
+      if: steps.version-bump.outputs.changed
+      run: echo "::set-env name=VERSION::$(python setup.py --version)"
+    - name: upload to pypi
+      if: steps.version-bump.outputs.changed
+      env:
+        TWINE_USERNAME: __token__
+        TWINE_PASSWORD: ${{ secrets.pypi_password }}
+      run: make publish
+    - name: Tag commit
+      if: steps.version-bump.outputs.changed
+      uses: tvdias/github-tagger@v0.0.1
+      with:
+        repo-token: "${{ secrets.GITHUB_TOKEN }}"
+        tag: "${{ env.VERSION }}"
+
