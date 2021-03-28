@@ -21,9 +21,8 @@ jobs:
     - name: install
       if: steps.cache-venv.outputs.cache-hit != 'true'
       run: make install
-    - uses: pre-commit/action@v2.0.0
-      with:
-        extra_args: --all-files --hook-stage push
+    - name: hooks
+      run: make hooks
     - name: check for version bump
       if: github.ref == 'refs/heads/main'
       uses: marceloprado/has-changed-path@v1
