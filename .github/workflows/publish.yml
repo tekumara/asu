@@ -3,6 +3,7 @@ name: Publish to PyPI
 on:
   push:
     tags:
+      - 'v*'
     paths:
       - 'asu/__init__.py'
   workflow_dispatch:
