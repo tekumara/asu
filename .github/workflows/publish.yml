@@ -1,0 +1,26 @@
+name: Publish to PyPI
+
+on: workflow_dispatch
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Set up Python 3.7
+      id: setup-python
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.7
+    - name: Cache virtualenv
+      uses: actions/cache@v2
+      with:
+        path: venv
+        key: ${{ runner.os }}-py${{ steps.setup-python.outputs.python-version }}-venv-${{ hashFiles('setup.py') }}
+    - name: install
+      if: steps.cache.outputs.cache-hit != 'true'
+      run: make install
+    - name: build dist
+      run: make dist
+    - name: upload to pypi
+      run: make publish
