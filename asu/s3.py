@@ -1,7 +1,57 @@
-from typing import Generator, List, Optional, Sequence
+from typing import Dict, Generator, List, Optional, Sequence
 
 import boto3
 import botocore.exceptions
+from mypy_boto3_s3.type_defs import TagTypeDef
+
+
+def create_bucket(name: str, kms_key_id: Optional[str],
+                  tags: Optional[Dict[str, str]], public_access_block: bool) -> None:
+    s3_client = boto3.client("s3")
+
+    try:
+        s3_client.head_bucket(Bucket=name)
+        raise ValueError(f"Bucket {name} already exists")
+    except botocore.exceptions.ClientError as e:
+        if e.response.get('Error', {}).get('Code', None) == '404':
+            pass
+        else:
+            raise e
+
+    s3_client.create_bucket(Bucket=name)
+
+    if kms_key_id:
+        s3_client.put_bucket_encryption(Bucket=name, ServerSideEncryptionConfiguration={
+            "Rules": [
+                {"ApplyServerSideEncryptionByDefault":
+                    {"SSEAlgorithm": "aws:kms",
+                      "KMSMasterKeyID": kms_key_id
+                     }
+                 }
+            ]})
+
+    if tags:
+        tagset: List[TagTypeDef] = [{"Key": k, "Value": v} for k, v in tags.items()]
+        if tagset:
+            s3_client.put_bucket_tagging(Bucket=name, Tagging={"TagSet": tagset})
+
+    if public_access_block:
+        s3_client.put_public_access_block(Bucket=name, PublicAccessBlockConfiguration={
+            'BlockPublicAcls': True,
+            'IgnorePublicAcls': True,
+            'BlockPublicPolicy': True,
+            'RestrictPublicBuckets': True
+        })
+
+
+def list_buckets() -> Generator[Sequence[Optional[str]], None, None]:
+    s3_client = boto3.client("s3")
+
+    response = s3_client.list_buckets()
+
+    yield ["Bucket"]
+    for b in response["Buckets"]:
+        yield [b["Name"]]
 
 
 def describe_all_buckets_encryption() -> Generator[Sequence[Optional[str]], None, None]:
