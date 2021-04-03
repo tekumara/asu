@@ -26,7 +26,7 @@ setup(
     extras_require={
         "dev": [
             "autopep8==1.5.6",
-            "boto3-stubs[s3]==1.17.39.0",
+            "boto3-stubs[s3]==1.17.44.0",
             "importlib_metadata==3.10.0",
             "isort==5.8.0",
             "flake8==3.9.0",
