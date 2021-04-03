@@ -1,4 +1,4 @@
-name: Test
+name: On push
 
 on: [push]
 
@@ -7,6 +7,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+      with:
+        # so marceloprado/has-changed-path@v1 can detect changes
+        fetch-depth: 2
     - name: Set up Python 3.7
       id: setup-python
       uses: actions/setup-python@v2
@@ -34,10 +37,10 @@ jobs:
       env:
         TWINE_USERNAME: __token__
         TWINE_PASSWORD: ${{ secrets.pypi_password }}
-      run: make publish
+      run: make dist publish
     - name: set version
       if: steps.version-bump.outputs.changed == 'true'
-      run: echo "version=$(python setup.py --version)" >> $GITHUB_ENV"
+      run: echo "version=$(python setup.py --version)" >> $GITHUB_ENV
     - name: Tag commit
       if: steps.version-bump.outputs.changed == 'true'
       uses: tvdias/github-tagger@v0.0.1
