@@ -26,18 +26,20 @@ jobs:
       run: make install
     - name: make hooks
       run: make hooks
+    - name: Make and test distribution
+      run: make dist test-wheel
     - name: Check for version bump
       if: github.ref == 'refs/heads/main'
       uses: marceloprado/has-changed-path@v1
       id: version-bump
       with:
         paths: asu/__init__.py
-    - name: Upload to pypi
+    - name: Upload dist to pypi
       if: steps.version-bump.outputs.changed == 'true'
       env:
         TWINE_USERNAME: __token__
         TWINE_PASSWORD: ${{ secrets.pypi_password }}
-      run: make dist publish
+      run: make publish
     - name: Read version
       if: steps.version-bump.outputs.changed == 'true'
       run: echo "version=$(python setup.py --version)" >> $GITHUB_ENV

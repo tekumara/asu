@@ -51,9 +51,21 @@ test: $(venv)
 
 ## build distribution
 dist: $(venv)
+	# start with a clean slate (see setuptools/#2347)
+	rm -rf *.egg-info
+
+	# remove previous builds
 	rm -rf dist/*
+
 	$(venv)/bin/python setup.py sdist
 	$(venv)/bin/python setup.py bdist_wheel
+
+## test the wheel is correctly packaged
+test-wheel: tmp_dir:=$(shell mktemp -d)
+test-wheel: $(venv)
+	$(venv)/bin/python3 -m venv --clear $(tmp_dir)
+	$(tmp_dir)/bin/pip install dist/*.whl
+	$(tmp_dir)/bin/asu ls -h
 
 ## publish to pypi
 publish: $(venv)
