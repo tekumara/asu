@@ -10,12 +10,13 @@ def create_bucket(name: str, kms_key_id: Optional[str],
     s3_client = boto3.client("s3")
 
     try:
+        # Because CreateBucket returns 200 when a bucket already exists
+        # we can't tell if the bucket already exists. Do an explicit check
+        # and abort here if it exists.
         s3_client.head_bucket(Bucket=name)
         raise ValueError(f"Bucket {name} already exists")
     except botocore.exceptions.ClientError as e:
-        if e.response.get('Error', {}).get('Code', None) == '404':
-            pass
-        else:
+        if e.response.get('Error', {}).get('Code', None) != '404':
             raise e
 
     s3_client.create_bucket(Bucket=name)

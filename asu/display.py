@@ -37,16 +37,17 @@ def pretty_table(table: Optional[Sequence[Sequence[Optional[str]]]]) -> str:
                 col_width[idx] = len(col)
 
     return "\n".join(
-        [
-            "".join(
-                [
-                    "".join(
-                        (col if col is not None else "").ljust(col_width[idx] + padding) for idx, col in enumerate(row)
+        "".join(
+            [
+                "".join(
+                    (col if col is not None else "").ljust(
+                        col_width[idx] + padding
                     )
-                ]
-            )
-            for row in table
-        ]
+                    for idx, col in enumerate(row)
+                )
+            ]
+        )
+        for row in table
     )
 
 
