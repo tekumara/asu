@@ -61,11 +61,11 @@ dist: $(venv)
 	$(venv)/bin/python setup.py bdist_wheel
 
 ## test the wheel is correctly packaged
-test-wheel: tmp_dir:=$(shell mktemp -d)
-test-wheel: $(venv)
+test-dist: tmp_dir:=$(shell mktemp -d)
+test-dist: $(venv)
 	$(venv)/bin/python3 -m venv --clear $(tmp_dir)
 	$(tmp_dir)/bin/pip install dist/*.whl
-	$(tmp_dir)/bin/asu ls -h
+	$(tmp_dir)/bin/asu ls --help
 
 ## publish to pypi
 publish: $(venv)

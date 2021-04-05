@@ -27,7 +27,7 @@ jobs:
     - name: make hooks
       run: make hooks
     - name: Make and test distribution
-      run: make dist test-wheel
+      run: make dist test-dist
     - name: Check for version bump
       if: github.ref == 'refs/heads/main'
       uses: marceloprado/has-changed-path@v1
