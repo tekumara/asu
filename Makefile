@@ -36,8 +36,6 @@ lint: $(venv)
 	$(venv)/bin/flake8
 
 node_modules: package.json
-	node --version
-	npm --version
 	npm install --no-save
 	touch node_modules
 
