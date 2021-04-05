@@ -2,7 +2,6 @@ from typing import Dict, Generator, List, Optional, Sequence
 
 import boto3
 import botocore.exceptions
-from mypy_boto3_s3.type_defs import TagTypeDef
 
 
 def create_bucket(name: str, kms_key_id: Optional[str],
@@ -32,9 +31,7 @@ def create_bucket(name: str, kms_key_id: Optional[str],
             ]})
 
     if tags:
-        tagset: List[TagTypeDef] = [{"Key": k, "Value": v} for k, v in tags.items()]
-        if tagset:
-            s3_client.put_bucket_tagging(Bucket=name, Tagging={"TagSet": tagset})
+        s3_client.put_bucket_tagging(Bucket=name, Tagging={"TagSet": [{"Key": k, "Value": v} for k, v in tags.items()]})
 
     if public_access_block:
         s3_client.put_public_access_block(Bucket=name, PublicAccessBlockConfiguration={
