@@ -1,6 +1,12 @@
 {
+    "include": [
+        "asu",
+        "tests"
+    ],
     "strictListInference": true,
     "strictDictionaryInference": true,
     "strictParameterNoneValue": true,
-    "reportTypedDictNotRequiredAccess": false
+    "reportTypedDictNotRequiredAccess": false,
+    "reportUnknownMemberType": false,
+    "reportUnnecessaryIsInstance": true
 }

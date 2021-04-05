@@ -57,7 +57,7 @@ def pretty_print(result: Union[Generator[Sequence[Optional[str]], None, None],
 
     console = Console()
 
-    if isinstance(result, GeneratorType):
+    if isinstance(result, Generator):
         header = next(result)
         column_names = cast(List[str], header)
         table = Table(box=box.SIMPLE)
@@ -71,10 +71,8 @@ def pretty_print(result: Union[Generator[Sequence[Optional[str]], None, None],
     elif isinstance(result, list):
         if isinstance(result[0], dict):
             rows = as_table(cast(List[Dict[str, str]], result))
-        elif isinstance(result[0], list):
-            rows = result
         else:
-            raise TypeError(f"not implemented for element type {type(result[0]).__name__}")
+            rows = result
         if len(rows) == 0:
             console.print("No results")
             return
