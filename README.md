@@ -1,6 +1,6 @@
 # AWS S3 CLI utils (asu)
 
-[![Test](https://github.com/tekumara/asu/actions/workflows/pythonapp.yml/badge.svg)](https://github.com/tekumara/asu/actions/workflows/pythonapp.yml)
+[![Build](https://github.com/tekumara/asu/actions/workflows/build.yml/badge.svg)](https://github.com/tekumara/asu/actions/workflows/build.yml)
 [![PyPI version](https://badge.fury.io/py/asu-cli.svg)](https://pypi.org/project/asu-cli/)
 
 ## Usage
