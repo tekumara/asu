@@ -25,7 +25,7 @@ setup(
     install_requires=["boto3==1.17.44", "typer==0.3.2", "rich==10.0.1"],
     extras_require={
         "dev": [
-            "autopep8==1.5.6",
+            "black==20.8b1",
             "boto3-stubs[s3]==1.17.44.0",
             "importlib_metadata==3.10.0",
             "isort==5.8.0",
@@ -34,7 +34,7 @@ setup(
             "flake8-colors==0.1.9",
             "pre-commit==2.11.1",
             "pytest==6.2.2",
-            "twine==3.4.1"
+            "twine==3.4.1",
         ]
     },
 )

@@ -10,11 +10,15 @@ app = typer.Typer(help="AWS S3 CLI utils")
 
 
 @app.command()
-def create(name: str,
-            kms_key_id: Optional[str] = typer.Option(default=None, help="SSE KMS master key ID"),
-            tag: Optional[List[str]] = typer.Option(default=None, help="a name=value pair. Can be repeated to apply multiple tags."),
-            public_access_block: bool = True) -> None:
-    """Make bucket"""
+def create(
+    name: str,
+    kms_key_id: Optional[str] = typer.Option(default=None, help="SSE KMS master key ID"),
+    tag: Optional[List[str]] = typer.Option(
+        default=None, help="a name=value pair. Can be repeated to apply multiple tags."
+    ),
+    public_access_block: bool = True,
+) -> None:
+    """Create bucket"""
     tags = {t[0]: t[1] for t in [t.split("=") for t in tag]}
     display.pretty_print(s3.create_bucket(name, kms_key_id, tags, public_access_block))
 

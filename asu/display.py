@@ -38,21 +38,22 @@ def pretty_table(table: Optional[Sequence[Sequence[Optional[str]]]]) -> str:
 
     return "\n".join(
         "".join(
-            [
-                "".join(
-                    (col if col is not None else "").ljust(
-                        col_width[idx] + padding
-                    )
-                    for idx, col in enumerate(row)
-                )
-            ]
+            ["".join((col if col is not None else "").ljust(col_width[idx] + padding) for idx, col in enumerate(row))]
         )
         for row in table
     )
 
 
-def pretty_print(result: Union[Generator[Sequence[Optional[str]], None, None],
-                               List[Dict[str, str]], List[List[Optional[str]]], Dict[str, str], str, None]) -> None:
+def pretty_print(
+    result: Union[
+        Generator[Sequence[Optional[str]], None, None],
+        List[Dict[str, str]],
+        List[List[Optional[str]]],
+        Dict[str, str],
+        str,
+        None,
+    ]
+) -> None:
     """print table/json, instead of showing a dict, or list of dicts."""
 
     console = Console()

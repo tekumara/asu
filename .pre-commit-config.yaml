@@ -4,9 +4,9 @@ repos:
   # formatters and linters are available in the virtualenv so they can be run from the makefile & vscode
   - repo: local
     hooks:
-      - id: autopep8
-        name: autopep8
-        entry: venv/bin/autopep8
+      - id: black
+        name: black
+        entry: venv/bin/black
         language: system
         types: [python]
       - id: isort
