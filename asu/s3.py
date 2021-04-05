@@ -48,7 +48,6 @@ def create_bucket(
 
 def list_buckets() -> Generator[Sequence[Optional[str]], None, None]:
     s3_client = boto3.client("s3")
-
     response = s3_client.list_buckets()
 
     yield ["Bucket"]
@@ -59,11 +58,9 @@ def list_buckets() -> Generator[Sequence[Optional[str]], None, None]:
 def describe_all_buckets_encryption() -> Generator[Sequence[Optional[str]], None, None]:
 
     s3_client = boto3.client("s3")
-
     response = s3_client.list_buckets()
 
     bucket_names: List[str] = [b["Name"] for b in response["Buckets"]]
-
     yield ["Bucket", "SSEAlgorithm", "KMSMasterKeyID"]
 
     for name in bucket_names:
@@ -72,7 +69,6 @@ def describe_all_buckets_encryption() -> Generator[Sequence[Optional[str]], None
             default_sse = encryption["ServerSideEncryptionConfiguration"]["Rules"][0][
                 "ApplyServerSideEncryptionByDefault"
             ]
-
         except botocore.exceptions.ClientError:
             default_sse = None
 
@@ -85,11 +81,9 @@ def describe_all_buckets_encryption() -> Generator[Sequence[Optional[str]], None
 def describe_all_buckets_tags(key: str) -> Generator[Sequence[Optional[str]], None, None]:
 
     s3_client = boto3.client("s3")
-
     response = s3_client.list_buckets()
 
     bucket_names: List[str] = [b["Name"] for b in response["Buckets"]]
-
     yield ["Bucket", f"Tag {key}"]
 
     for name in bucket_names:
