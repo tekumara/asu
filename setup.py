@@ -9,7 +9,7 @@ long_description = Path("README.md").read_text()
 setup(
     name="asu-cli",
     version=asu.__version__,
-    description="aws s3 utils",
+    description="aws s3 cli utils",
     url="https://github.com/tekumara/asu",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -30,10 +30,10 @@ setup(
             "importlib_metadata==3.10.0",
             "isort==5.8.0",
             "flake8==3.9.0",
-            "flake8-annotations==2.6.1",
+            "flake8-annotations==2.6.2",
             "flake8-colors==0.1.9",
-            "pre-commit==2.11.1",
-            "pytest==6.2.2",
+            "pre-commit==2.12.0",
+            "pytest==6.2.3",
             "twine==3.4.1",
         ]
     },
