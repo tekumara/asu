@@ -36,7 +36,7 @@ def sse() -> None:
 
 
 @app.command()
-def tags(key: str) -> None:
+def tags(key: Optional[str] = typer.Option(default=None, help="Tag to fetch, otherwise list tag keys")) -> None:
     """List tag for all buckets"""
     display.pretty_print(s3.describe_all_buckets_tags(key))
 

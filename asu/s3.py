@@ -78,15 +78,20 @@ def describe_all_buckets_encryption() -> Generator[Sequence[Optional[str]], None
             yield [name, None, None]
 
 
-def describe_all_buckets_tags(key: str) -> Generator[Sequence[Optional[str]], None, None]:
+def describe_all_buckets_tags(key: Optional[str]) -> Generator[Sequence[Optional[str]], None, None]:
 
     s3_client = boto3.client("s3")
     response = s3_client.list_buckets()
 
     bucket_names: List[str] = [b["Name"] for b in response["Buckets"]]
-    yield ["Bucket", f"Tag {key}"]
+    tag_col_header = f"Tag {key}" if key else "Tag keys"
+    yield ["Bucket", tag_col_header]
 
     for name in bucket_names:
         tagset = s3_client.get_bucket_tagging(Bucket=name)["TagSet"]
-        value = [tag["Value"] for tag in tagset if tag["Key"] == key]
-        yield [name, value[0] if value else None]
+        if key:
+            value = [tag["Value"] for tag in tagset if tag["Key"] == key]
+            yield [name, value[0] if value else None]
+        else:
+            tag_keys = [tag["Key"] for tag in tagset]
+            yield [name, ",".join(tag_keys)]
