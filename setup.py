@@ -27,7 +27,7 @@ setup(
         "dev": [
             "black==20.8b1",
             "boto3-stubs[s3]==1.17.44.0",
-            "importlib_metadata==3.10.0",
+            "importlib_metadata==4.0.1",
             "isort==5.8.0",
             "flake8==3.9.0",
             "flake8-annotations==2.6.2",
