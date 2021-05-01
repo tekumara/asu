@@ -26,7 +26,7 @@ setup(
     extras_require={
         "dev": [
             "black==20.8b1",
-            "boto3-stubs[s3]==1.17.44.0",
+            "boto3-stubs[s3]==1.17.62.0",
             "importlib_metadata==3.10.0",
             "isort==5.8.0",
             "flake8==3.9.0",
