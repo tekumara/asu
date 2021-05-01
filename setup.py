@@ -32,7 +32,7 @@ setup(
             "flake8==3.9.0",
             "flake8-annotations==2.6.2",
             "flake8-colors==0.1.9",
-            "pre-commit==2.12.0",
+            "pre-commit==2.12.1",
             "pytest==6.2.3",
             "twine==3.4.1",
         ]
