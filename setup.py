@@ -22,7 +22,7 @@ setup(
     python_requires=">=3.7",
     packages=find_packages(exclude=["tests"]),
     include_package_data=True,
-    install_requires=["boto3==1.17.44", "typer==0.3.2", "rich==10.0.1"],
+    install_requires=["boto3==1.17.62", "typer==0.3.2", "rich==10.0.1"],
     extras_require={
         "dev": [
             "black==20.8b1",
