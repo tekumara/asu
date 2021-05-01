@@ -25,7 +25,7 @@ setup(
     install_requires=["boto3==1.17.62", "typer==0.3.2", "rich==10.1.0"],
     extras_require={
         "dev": [
-            "black==20.8b1",
+            "black==21.4b2",
             "boto3-stubs[s3]==1.17.62.0",
             "isort==5.8.0",
             "flake8==3.9.1",
