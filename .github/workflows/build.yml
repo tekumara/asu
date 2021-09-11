@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
     - uses: actions/checkout@v2
       with:
@@ -19,7 +19,7 @@ jobs:
       id: cache-venv
       uses: actions/cache@v2
       with:
-        path: venv
+        path: .venv
         key: ${{ runner.os }}-py${{ steps.setup-python.outputs.python-version }}-venv-${{ hashFiles('setup.py') }}
     - name: make install
       if: steps.cache-venv.outputs.cache-hit != 'true'
@@ -38,7 +38,7 @@ jobs:
       if: steps.version-bump.outputs.changed == 'true'
       env:
         TWINE_USERNAME: __token__
-        TWINE_PASSWORD: ${{ secrets.pypi_password }}
+        TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
       run: make publish
     - name: Read version
       if: steps.version-bump.outputs.changed == 'true'
