@@ -16,6 +16,7 @@ jobs:
     - run: sleep 5 # there's still a race condition for now
     - name: token
       run: |
+        set -x
         curl -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=sigstore"
     - name: Set up Python 3.7
       id: setup-python
