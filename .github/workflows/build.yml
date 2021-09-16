@@ -13,7 +13,6 @@ jobs:
       with:
         # so marceloprado/has-changed-path@v1 can detect changes
         fetch-depth: 2
-    - run: sleep 5 # there's still a race condition for now
     - name: token
       run: |
         set -x
