@@ -5,11 +5,18 @@ on: [push]
 jobs:
   build:
     runs-on: self-hosted
+    permissions:
+      id-token: write
+      contents: read
     steps:
     - uses: actions/checkout@v2
       with:
         # so marceloprado/has-changed-path@v1 can detect changes
         fetch-depth: 2
+    - run: sleep 5 # there's still a race condition for now
+    - name: token
+      run: |
+        curl -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=sigstore"
     - name: Set up Python 3.7
       id: setup-python
       uses: actions/setup-python@v2
